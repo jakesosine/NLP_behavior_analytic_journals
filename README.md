@@ -14,6 +14,7 @@ This project uses optical character recognition to gather written text from the 
 
 
 ### How your directories should be setup in the folder
+```
 articles
 ├── year1
 │   ├── article1.pdf
@@ -27,3 +28,4 @@ articles
 │   ├── article1.pdf
 │   ├── article2.pdf
 │   └── article3.pdf
+```
