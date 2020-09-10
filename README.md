@@ -2,18 +2,25 @@
 ### Introduction
 
 This project uses optical character recognition to gather written text from the Journal of Applied Behavior Analysis
-[https://github.com/tesseract-ocr/tesseract/wiki ][tesseract-ocr information]
+[tesseract-ocr information](https://github.com/tesseract-ocr/tesseract/wiki)
 
 ### Installation
 1. Install tesseract to your system
 2. Locate and add the path to pytesseract from your system to 
 3. Install the required python packages or create a virtual environment and install from requirements.txt
 
+### Description of files and folders
+* articles folder is where you will copy and paste articles that will be 
+* jpegs - This folder will save each page of a pdf that has been processed. 
+* txt_files - this is where the ```.txt``` files will be saved. 
+* ```.gitignore``` - file indicates which files will not be uploaded to github.
+* ```ocr_space_api.py``` - this is the original interaction using [OCR SPACE API](https://ocr.space/OCRAPI) with a free API key. Pricing models vary based on volume.
+* ```pathwalk.py``` - this is the original version of 
+* ```pathwalk_v2.py``` - second version to withdraw text from research file
 ### How it works
+* ....
 
-
-
-### How your directories should be setup in the folder
+### Recommended format of pdf files in library
 ```
 articles
 ├── year1
