@@ -1,4 +1,4 @@
-# JABA Preprocessing and NLP Analysis
+# JABA Preprocessing and NLP
 ### Introduction
 
 This project uses optical character recognition to gather written text from the Journal of Applied Behavior Analysis
