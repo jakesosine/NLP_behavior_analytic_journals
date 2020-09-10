@@ -15,8 +15,8 @@ This project uses optical character recognition to gather written text from the 
 * txt_files - this is where the ```.txt``` files will be saved. 
 * ```.gitignore``` - file indicates which files will not be uploaded to github.
 * ```ocr_space_api.py``` - this is the original interaction using [OCR SPACE API](https://ocr.space/OCRAPI) with a free API key. Pricing models vary based on volume.
-* ```pathwalk.py``` - this is the original version of 
-* ```pathwalk_v2.py``` - second version to withdraw text from research file
+* ```pathwalk.py``` - Original use
+* ```pathwalk_v2.py``` - Use for slow extraction from PDF's in research articles
 ### How it works
 * ....
 
