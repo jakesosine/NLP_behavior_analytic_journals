@@ -29,8 +29,8 @@ for root, dirs, files in os.walk('articles'):
             for page in pages:
                 name = 'jpegs/a_file_' + str(saved_image_num) + '.jpeg'
                 page.save(name, 'JPEG')
-                p += 1
                 saved_image_num += 1
+                page_number += 1
                 image_ocr(name, text_file + str(article_number) + '.txt')
                 if page_number == length_of_article:
                     article_number += 1
