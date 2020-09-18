@@ -24,17 +24,13 @@ for root, dirs, files in os.walk('articles'):
         if file_.endswith('.pdf'):
             article_path = str(root) + '/' + str(file_)
             pages = convert_from_path(article_path, 500)
-            length = len(pages)
-            print("Length of article/variable pages: ", length)
-            p = 0
+            length_of_article = len(pages)
+            page_number = 0
             for page in pages:
-                # need second counter for article number
                 name = 'jpegs/a_file_' + str(saved_image_num) + '.jpeg'
                 page.save(name, 'JPEG')
                 p += 1
                 saved_image_num += 1
                 image_ocr(name, text_file + str(article_number) + '.txt')
-                if p == length:
-                    print("The number for p: ", p)
-                    print(article_number, length, p)
+                if page_number == length_of_article:
                     article_number += 1
