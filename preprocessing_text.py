@@ -1,8 +1,6 @@
 import re
 import pandas as pd
 # passes an open text file through this function with a start and end string to return what is between those two values.
-
-
 def text_gathering(opened_file, start_identifier, end_identifier):
     start = opened_file.find(start_identifier)
     end = opened_file.find(end_identifier)
