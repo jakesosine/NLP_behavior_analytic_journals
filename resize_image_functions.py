@@ -4,14 +4,14 @@ import pytesseract
 from pytesseract import Output
 
 
-y = 0
-h = 2500
+y = 350
+h = 5000
 x = 0
-w = 60000
-global_dim = (640, 420)
+w = 3440
+global_dim = (2500, 1770)
 scale_percentage = 20
 
-# Crop and resize the photo Resize the photo an
+# Crop and resize the photo Resize the photo so that all of the headers are out of the frame
 
 
 def crop_and_resize(image_path):
@@ -25,13 +25,15 @@ def crop_and_resize(image_path):
     cv2.destroyAllWindows()
 
 
+print(crop_and_resize('jpegs/a_file_0.jpeg'))
+
 y1 = 0
 h1 = 250
 x1 = 0
 w1 = 342
 
 
-def resize_then_crop(image_path, scale_percentage):
+def crop_and_resize_title_page(image_path, scale_percentage):
     img = cv2.imread(image_path, cv2.IMREAD_UNCHANGED)
     print('Original Dimensions : ', img.shape)
     width = int(img.shape[1] * scale_percentage / 100)
@@ -72,8 +74,8 @@ def border_crop_resize(image_path, scale_percentage):
 
 
 # crop_and_resize('a_file_0.jpeg')
-#resize_then_crop('a_file_0.jpeg', 10)
-#border_crop_resize('a_file_3.jpeg', 20)
+# resize_then_crop('a_file_0.jpeg', 10)
+# border_crop_resize('a_file_3.jpeg', 20)
 
 
 def get_grayscale(image_path):
@@ -135,7 +137,7 @@ canny = get_grayscale('jpegs/a_file_0.jpeg')
 cv2.imshow('img_bounding_boxes_on_words', canny)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
-#n_boxes = len(d['text'])
+# n_boxes = len(d['text'])
 
 # bounding_boxes('jpegs/a_file_1278.jpeg')
 
