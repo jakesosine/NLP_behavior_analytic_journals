@@ -1,6 +1,8 @@
 import re
 import pandas as pd
 # passes an open text file through this function with a start and end string to return what is between those two values.
+
+
 def text_gathering(opened_file, start_identifier, end_identifier):
     start = opened_file.find(start_identifier)
     end = opened_file.find(end_identifier)
@@ -54,12 +56,16 @@ sometimes present with gait and posture'''
 #print(clean_text(text, "Key words:"))
 
 
+df = pd.DataFrame()
+
+
 # Open file With context manager
-with open('txt_files/article0.txt', 'r') as f:
+with open('txt_files/article978.txt', 'r') as f:
     f_contents = f.read()
     #print(keywords_text(f_contents, 'Key words', 'METHOD'))
     method = (text_gathering(f_contents, "METHOD", "RESULTS"))
     method = clean_text(method, "METHOD")
-    print(method)
-    #print(text_gathering(f_contents, "RESULTS", "REFERENCES"))
+    # print(method)
+    results = text_gathering(f_contents, "RESULTS", "REFERENCES")
+    print(results)
     #print(text_references(f_contents, "REFERENCES"))
