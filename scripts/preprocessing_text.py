@@ -1,5 +1,6 @@
 import re
 import pandas as pd
+import os
 # passes an open text file through this function with a start and end string to return what is between those two values.
 
 
@@ -15,12 +16,6 @@ def text_references(opened_file, start_identifier):
     return opened_file[start:]
 
 # Identifying the keywords:
-
-
-def keywords_text(opened_file, start_identifier, end_identifier):
-    start = opened_file.find(start_identifier)
-    end = opened_file.find(end_identifier)
-    return opened_file[start:end]
 
 
 def clean_text(text, start_identifier):
@@ -56,16 +51,15 @@ sometimes present with gait and posture'''
 #print(clean_text(text, "Key words:"))
 
 
-df = pd.DataFrame()
+#df = pd.DataFrame()
 
-
-# Open file With context manager
-with open('txt_files/article978.txt', 'r') as f:
-    f_contents = f.read()
-    #print(keywords_text(f_contents, 'Key words', 'METHOD'))
-    method = (text_gathering(f_contents, "METHOD", "RESULTS"))
-    method = clean_text(method, "METHOD")
-    # print(method)
-    results = text_gathering(f_contents, "RESULTS", "REFERENCES")
-    print(results)
-    #print(text_references(f_contents, "REFERENCES"))
+for root, dirs, files in os.walk('../txt_files'):
+    for file_ in files:
+        if file_.endswith('.txt'):
+            text_path = str(root) + '/' + str(file_)
+            with open(text_path, 'r') as f:
+                file_contents = f.read()
+                #method = text_gathering(file_contents, 'METHOD', 'RESULTS')
+                #results = text_gathering(file_contents, "RESULTS", "REFERENCES")
+                references = text_references(file_contents, "REFERENCES")
+                print(references)
