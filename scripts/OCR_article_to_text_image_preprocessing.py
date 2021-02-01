@@ -46,7 +46,7 @@ def image_ocr(image_path, output_txt_file_name):
 
 article_number = 0  # Starting article value
 saved_image_num = 0  # Starting saved image value
-text_file = './txt_files'
+text_file = './JABA_NLP/txt_files'
 
 # Identifying different files in the directory
 for root, dirs, files in os.walk(directory):
@@ -65,24 +65,22 @@ for root, dirs, files in os.walk(directory):
                     # General visual check to establish if the function is working
                     print('Resizing first page and converting to text')
                     # produce a path for the page
-                    name = '../jpegs/file_' + str(saved_image_num) + '.jpeg'
+                    name = './JABA_NLP/jpegs/file_' + str(saved_image_num) + '.jpeg'
                     page.save(name, 'JPEG')  # Save the page as a JPEG
                     img = crop_page_1(name)  # Crop the Jpeg image
                     page_number += 1  # Add 1 to page number to track the pages
                     saved_image_num += 1  # Increase saved image number to name next jpeg
                     # Ocr on the image
-                    image_ocr(img,  text_file +
-                              str(root[-4:]) + '__' + article_number + '.txt')
+                    image_ocr(img,  text_file + str(root[-4:]) + '__' + str(article_number) + '.txt')
                 else:
                     print('Resizing and converting next page to text')
-                    name_ = '../jpegs/file_' + str(saved_image_num) + '.jpeg'
+                    name_ = './JABA_NLP/jpegs/file_' + str(saved_image_num) + '.jpeg'
                     page.save(name_, 'JPEG')
                     img1 = crop_page_2_through_end(
                         name_)  # Different image cropping
                     saved_image_num += 1
                     page_number += 1
-                    image_ocr(img1, text_file +
-                              str(root[-4:]) + '__' + article_number + '.txt')
+                    image_ocr(img1, text_file + str(root[-4:]) + '__' + str(article_number) + '.txt')
                     if page_number == length_of_article:  # Outlines to change the text file so that over aggregating does not occur
                         print(
                             'Page numbers and length of article matched, changing .txt file for next article')
