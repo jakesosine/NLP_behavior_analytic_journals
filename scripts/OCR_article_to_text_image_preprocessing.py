@@ -74,8 +74,8 @@ for root, dirs, files in os.walk('../articles'):
                     page_number += 1  # Add 1 to page number to track the pages
                     saved_image_num += 1  # Increase saved image number to name next jpeg
                     # Ocr on the image
-                    image_ocr(img,  text_file +
-                              str(root[-4:]) + '__' + article_number + '.txt')
+                    image_ocr(img,  str(text_file) +
+                              str(root[-4:]) + '_' + str(article_number) + '.txt')
 
                 else:
                     print('Resizing and converting next page to text')
@@ -85,8 +85,8 @@ for root, dirs, files in os.walk('../articles'):
                         name_)  # Different image cropping
                     saved_image_num += 1
                     page_number += 1
-                    image_ocr(img1, text_file +
-                              str(root[-4:]) + '__' + article_number + '.txt')
+                    image_ocr(img1, str(text_file) +
+                              str(root[-4:]) + '_' + str(article_number) + '.txt')
 
                     if page_number == length_of_article:  # Outlines to change the text file so that over aggregating does not occur
                         print(
