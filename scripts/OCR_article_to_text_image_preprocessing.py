@@ -6,10 +6,6 @@ import cv2
 # This is the path to tesseract on the device
 pytesseract.pytesseract.tesseract_cmd = r'/usr/local/Cellar/tesseract/4.1.1/bin/tesseract'
 
-os.chdir('/Users/davidjcox/Dropbox (Personal)/Projects/CurrentProjectManuscripts/Empirical/PersonalFun/ArticleNLP')
-
-directory = '/Users/davidjcox/Dropbox (Personal)/Projects/CurrentProjectManuscripts/Empirical/PersonalFun/ArticleNLP'
-
 #%% Cropping values
 y = 100  # This is the value for cropping off the header for page 2-end.
 h = 5000  # This encompassess the whole document
@@ -71,13 +67,9 @@ for root, dirs, files in os.walk(directory):
                     page_number += 1  # Add 1 to page number to track the pages
                     saved_image_num += 1  # Increase saved image number to name next jpeg
                     # Ocr on the image
-<<<<<<< HEAD
                     image_ocr(img,  str(text_file) +
                               str(root[-4:]) + '_' + str(article_number) + '.txt')
-
-=======
                     image_ocr(img,  text_file + str(root[-4:]) + '__' + str(article_number) + '.txt')
->>>>>>> c23c3593c103a5a55064332b804cb39b5089666c
                 else:
                     print('Resizing and converting next page to text')
                     name_ = './JABA_NLP/jpegs/file_' + str(saved_image_num) + '.jpeg'
@@ -86,13 +78,9 @@ for root, dirs, files in os.walk(directory):
                         name_)  # Different image cropping
                     saved_image_num += 1
                     page_number += 1
-<<<<<<< HEAD
                     image_ocr(img1, str(text_file) +
                               str(root[-4:]) + '_' + str(article_number) + '.txt')
-
-=======
                     image_ocr(img1, text_file + str(root[-4:]) + '__' + str(article_number) + '.txt')
->>>>>>> c23c3593c103a5a55064332b804cb39b5089666c
                     if page_number == length_of_article:  # Outlines to change the text file so that over aggregating does not occur
                         print(
                             'Page numbers and length of article matched, changing .txt file for next article')
