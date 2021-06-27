@@ -18,5 +18,4 @@ for i in range(n_boxes):
                         [i], d['width'][i], d['height'][i])
         img = cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
-cv2.imshow('img', img)
-cv2.waitKey(0)
+cv2.imwrite('../bounding_box_example.jpeg', img)
