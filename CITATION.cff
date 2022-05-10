@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Sosine"
+  given-names: "Jacob"
+  orcid: "https://orcid.org/0000-0000-0000-0000"
+- family-names: "David J."
+  given-names: "Cox"
+  orcid: "https://orcid.org/0000-0000-0000-0000"
+title: "JABA_NLP"
+version: 1.0.0
+doi: 10.5281/zenodo.1234
+date-released: 2022-05-09
+url: "https://github.com/jakesosine/JABA_NLP"
