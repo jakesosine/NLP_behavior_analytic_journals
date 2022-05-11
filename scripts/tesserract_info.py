@@ -32,9 +32,9 @@ pages = convert_from_path('articles/test_article/test_article.pdf', 500)
 
 num = 0
 for page in pages:
-    print(len(pages))
-    name = 'jpegs/a_file_' + str(num) + '.jpeg'
+    print(f'Number of pages of document:{len(pages)}')
+    name = f'jpegs/a_file_{str(num)}.jpeg'
     page.save(name, 'JPEG')
-    jpegs_path = 'jpegs/a_file_' + str(num) + '.jpeg'
+    jpegs_path = f'jpegs/a_file_{str(num)}.jpeg'
     image_ocr(jpegs_path, 'txt_files/sample_text/sample_article.txt')
     num = num + 1
