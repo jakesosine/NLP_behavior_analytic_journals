@@ -1,6 +1,34 @@
 import re
 import pandas as pd
 import os
+import numpy as np
+import pandas as pd
+import nltk
+nltk.download('stopwords')
+from nltk.corpus import stopwords
+from nltk.tokenize import RegexpTokenizer
+from nltk.stem import WordNetLemmatizer
+from nltk.tag import StanfordNERTagger
+from nltk.stem.porter import PorterStemmer
+from nltk.stem.snowball import SnowballStemmer
+from nltk.tokenize import word_tokenize
+import string
+import re
+import seaborn as sns
+from nltk.util import ngrams
+#not needed
+nltk.download('punkt')
+from bs4 import BeautifulSoup
+import matplotlib.pyplot as plt
+import collections
+#from normalise import normalise
+from nltk.corpus import wordnet as wn
+from nltk import pos_tag
+import nltk
+nltk.download('averaged_perceptron_tagger')
+nltk.download('wordnet')
+
+
 # passes an open text file through this function with a start and end string to return what is between those two values.
 def remove_proper_noun_singular(text):
     word_tokens = word_tokenize(text)
