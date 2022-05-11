@@ -6,7 +6,7 @@ import cv2
 # This is the path to tesseract on the device
 pytesseract.pytesseract.tesseract_cmd = r'/usr/local/Cellar/tesseract/4.1.1/bin/tesseract'
 
-#%% Cropping values
+#Cropping values
 y = 100  # This is the value for cropping off the header for page 2-end.
 h = 5000  # This encompassess the whole document
 x = 0
@@ -42,10 +42,9 @@ def image_ocr(image_path, output_txt_file_name):
 
 article_number = 0  # Starting article value
 saved_image_num = 0  # Starting saved image value
-text_file = './JABA_NLP/txt_files'
-
+text_file = '../JABA_NLP/txt_files'
 # Identifying different files in the directory
-for root, dirs, files in os.walk(directory):
+for root, dirs, files in os.walk('../articles/'):
     for file_ in files:
         if file_.endswith('.pdf'):  # Identifying files that end with .pdf
             # Outlining the article path

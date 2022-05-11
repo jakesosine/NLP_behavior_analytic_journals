@@ -2,94 +2,76 @@ import re
 import pandas as pd
 import os
 # passes an open text file through this function with a start and end string to return what is between those two values.
+def remove_proper_noun_singular(text):
+    word_tokens = word_tokenize(text)
+    tagged_sentence = pos_tag(word_tokens)
+    text = [word for (word,tag) in tagged_sentence if tag not in set(['NNP',"NNPS"])]
+    joined = ' '.join(text)
+    return joined
 
+def remove_url(text):
+    text = re.sub(r'(http|https|ftp|ssh)://([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?', '', text)
+    return text
 
-def text_gathering(opened_file, start_identifier, end_identifier):
-    start = opened_file.find(start_identifier)
-    end = opened_file.find(end_identifier)
-    return opened_file[start:end]
+def remove_whitespace(text):
+    return  " ".join(text.split())
 
+def remove_html(text):
+    soup = BeautifulSoup(text,'lxml')
+    html_free = soup.get_text()
+    return html_free
 
-# This is specifically used to return the location, to the end of the text file (used here for references)
-def text_references(opened_file, start_identifier):
-    start = opened_file.find(start_identifier)
-    return opened_file[start:]
+def remove_numbers(text):
+    number_free = re.sub(r'\d+', '', text)
+    return number_free
 
-# Identifying the keywords:
-
-
-def clean_text(text, start_identifier):
-    text = text.replace(start_identifier, "")
+def remove_punctuation_with_period(text):
+    punct = set(string.punctuation)
     text = text.lower()
-    text = re.sub(r"i'm", "i am", text)
-    text = re.sub(r"he's", "he is", text)
-    text = re.sub(r"she's", "she is", text)
-    text = re.sub(r"that's", "that is", text)
-    text = re.sub(r"what's", "what is", text)
-    text = re.sub(r"where's", "where is", text)
-    text = re.sub(r"how's", "how is", text)
-    text = re.sub(r"\'ll", " will", text)
-    text = re.sub(r"\'ve", " have", text)
-    text = re.sub(r"\'re", " are", text)
-    text = re.sub(r"\'d", " would", text)
-    text = re.sub(r"n't", " not", text)
-    text = re.sub(r"won't", "will not", text)
-    text = re.sub(r"can't", "cannot", text)
-    text = re.sub(r"[-()\"#/@;:<>{}`+=~|.!?,]", "", text)
+    text = "".join([c for c in text if c not in punct])
+    text = re.sub(r"""[()\’°"#/@;¢€:£<“>{}«®`©”+=~‘|.!?,]""", "", text)
+    text = re.sub(r'/[^a-zA-Z]',"",text)
+    text = " ".join(text.split())
     return text
 
 
-#text = keywords_text(test_string, 'Key words:', 'posture')
-#print(clean_text(text, "Key words:"))
-path = '/Users/jacobsosine/Dropbox/'
-
-df = pd.DataFrame()
-
-methods = []
-results = []
-discussions = []
-references = []
-
-for root, dirs, files in os.walk(path):
-    for file_ in files:
-        if file_.endswith('.txt'):
-            text_path = os.path.join(root, file_)
-            print(text_path)
-
-"""
-
-            with open(text_path, 'r') as f:
-                file_contents = f.read()
-                method = text_gathering(
-                    file_contents, 'METHOD', 'RESULTS')
-                method = clean_text(method, "METHOD")
-                methods.append(method)
-
-                result = text_gathering(
-                    file_contents, "RESULTS", "DISCUSSION")
-                result = clean_text(result, "RESULTS")
-                results.append(result)
-                discussion = text_gathering(
-                    file_contents, "DISCUSSION", "REFERENCES")
-                discussion = clean_text(discussion, "DISCUSSION")
-                discussions.append(discussion)
-                reference = text_references(file_contents, "REFERENCES")
-                references.append(reference)
+def remove_stopwords(text):
+    stopwords_ = set(stop_words)
+    word_tokens = word_tokenize(text)
+    filtered_text = [word for word in word_tokens if word not in stopwords_]
+    text = " ".join(filtered_text)
+    return text
 
 
-df['methods'] = methods
-df['results'] = results
-df['discussions'] = discussions
-df['references'] = references
+def word_lemmatizer(text):
+    lemmatizer = WordNetLemmatizer()
+    word_tokens = word_tokenize(text)
+    lem_text = " ".join([lemmatizer.lemmatize(i)for i in word_tokens])
+    return lem_text
 
 
-print(df['methods'][30])
-print(df['results'][30])
-print(df['discussions'][30])
-print(df['references'][30])
+def word_stemmer(text):
 
-dataframe = df.applymap(lambda x: x.encode('unicode_escape').
-                        decode('utf-8') if isinstance(x, str) else x)
-#df.to_csv('first_run.csv', index=False, header=True)
-#dataframe.to_excel('df.xlsx', index=True, header=True)
-"""
+    word_tokens = word_tokenize(text)
+    stem_text = " ".join([stemmer_port.stem(i) for i in word_tokens])
+    return stem_text
+
+if __name__ == '__main__':
+    df = pd.read_csv('../data/all_text_articles.csv')
+    df['removed']  = df['text'].apply(lambda x: remove_proper_noun_singular(x))
+    df['removing_url'] = df['removed'].apply(lambda x: remove_url(x))
+    df['remove_whitespaces'] = df['removing_url'].apply(lambda x: remove_whitespace(x))
+    df['text_less_html'] = df['remove_whitespaces'].apply(lambda x: remove_html(x))
+    df['numbers_removed'] = df['text_less_html'].apply(lambda x: remove_numbers(x))
+    df['punct_removed'] = df['numbers_removed'].apply(lambda x: remove_punctuation_with_period(x))
+    lst = ['eg','et','al','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','doi','ry','baa','rya','og','cs']
+    stop_words = stopwords.words("english")
+    for i in lst:
+        stop_words.append(i)
+        print(stop_words)
+    df['stopwords_removed'] = df['punct_removed'].apply(lambda x: remove_stopwords(x))
+    df['lemmatization'] = df['stopwords_removed'].apply(lambda x: word_lemmatizer(x))
+    df['porter_stemmed'] = df['lemmatization'].apply(lambda x: word_stemmer(x))
+    df['word_count'] = df['text'].apply(lambda x: len(str(x).split()))
+    data_frame = df[['text','years','journals','file_path','lemmatization', 'word_count']]
+    data_frame.to_csv('../data/Only_essential_columns.csv')
